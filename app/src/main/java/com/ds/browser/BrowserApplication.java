@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import com.ds.browser.service.AdvanceLoadX5Service;
 import com.tencent.smtt.sdk.QbSdk;
+import com.tencent.smtt.sdk.TbsDownloader;
 
 
 public class BrowserApplication extends Application{
@@ -25,7 +26,7 @@ public class BrowserApplication extends Application{
     }
 
     private void preInitX5WebCore() {
-        //TbsDownloader.needDownload(getApplicationContext(), true);
+        TbsDownloader.needDownload(getApplicationContext(), true);
         if (!QbSdk.isTbsCoreInited()) {
             QbSdk.preInit(getApplicationContext());// 设置X5初始化完成的回调接口
         }
