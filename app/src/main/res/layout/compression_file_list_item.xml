@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="65dp"
+    android:padding="10dp"
+    tool:background="@android:color/white">
+
+    <ImageView
+        android:id="@+id/compression_icon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_centerVertical="true"
+        tool:src="@drawable/collect"
+        tool:ignore="ContentDescription" />
+    <TextView
+        android:id="@+id/compression_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@id/compression_icon"
+        android:ellipsize="middle"
+        android:textColor="@color/text_color_deep_gray"
+        android:textSize="16sp"
+        tool:text="百度.apk"
+        android:singleLine="true" />
+
+    <TextView
+        android:id="@+id/compression_modified_date_and_size"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@id/compression_icon"
+        android:textColor="@color/text_color_light_gray"
+        android:textSize="12sp"
+        tool:text="2018年10月18日 下午12：50   1022.99MB" />
+</RelativeLayout>

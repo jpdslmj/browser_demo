@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="220dp"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@android:color/white"
+        android:layout_weight="1">
+
+        <com.ds.browser.widget.ElasticScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/weather"
+            android:layout_alignParentStart="true"
+            android:paddingTop="10dp">
+
+            <com.ds.browser.widget.MenuListView
+                android:id="@+id/menu_list"
+                android:divider="@null"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </com.ds.browser.widget.ElasticScrollView>
+
+        <TextView
+            android:id="@+id/exit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_alignBaseline="@+id/current_city"
+            android:layout_alignBottom="@+id/current_city"
+
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="27dp"
+            android:clickable="true"
+            android:drawableStart="@drawable/exit"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="@string/exit"
+            android:textColor="#000"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/weather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="40dp"
+            android:layout_marginEnd="20dp"
+            android:textColor="#1c86ee"
+            android:textSize="32sp"
+            tool:text="60°"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:id="@+id/current_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/weather"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:textColor="#000"
+            android:textSize="14sp"
+            tool:text="乌鲁木齐市"
+            android:visibility="invisible"/>
+    </RelativeLayout>
+</LinearLayout>

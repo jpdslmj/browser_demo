@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_alignParentBottom="true"
+    app:cardElevation="10dp"
+    app:cardCornerRadius="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/web_back"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="0"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="invisible"
+            android:src="@drawable/web_backward" />
+
+        <ImageView
+            android:id="@+id/web_next"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="0"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="invisible"
+            android:src="@drawable/web_forward" />
+<!--
+
+        <ImageView
+            android:id="@+id/web_multi"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="0"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/web_multi" />
+-->
+
+
+
+        <ImageView
+            android:id="@+id/web_freshen"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/web_refresh" />
+        <ImageView
+            android:id="@+id/menu_button"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/menu" />
+
+        <ImageView
+            android:id="@+id/home_button"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="0"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="invisible"
+            android:src="@drawable/home" />
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

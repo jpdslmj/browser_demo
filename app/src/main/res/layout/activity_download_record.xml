@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    xmlns:tool="http://schemas.android.com/tools">
+    <RelativeLayout
+        android:id="@+id/download_record_bar_theme"
+        android:layout_width="match_parent"
+        tool:background="#474747"
+        android:layout_height="75dp">
+        <Button
+            android:id="@+id/download_record_back"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/close_window"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="35dp"
+            android:text="@string/download_record_title"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+    </RelativeLayout>
+    <ListView
+        android:id="@+id/download_record_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/download_record_bar_theme"
+        android:layout_above="@+id/download_record_select_more_bar"
+        android:divider="@null"/>
+
+    <RelativeLayout
+        android:id="@+id/download_record_storage_size_bar"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp">
+        <com.ds.browser.widget.TextProgressBar
+            android:id="@+id/storage_size_progress"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:max="100"
+            android:layout_toStartOf="@+id/empty_download_record"
+            android:layout_marginEnd="15dp"
+            android:layout_centerVertical="true"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:progressDrawable="@drawable/storage_size_progress_style"/>
+        <TextView
+            android:id="@+id/empty_download_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/text_color_deep_gray"
+            android:text="@string/download_record_empty"
+            tool:ignore="ContentDescription" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/download_record_select_more_bar"
+        android:visibility="invisible"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp">
+        <Button
+            android:id="@+id/download_record_confirm_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/download_record_delete"/>
+        <Button
+            android:id="@+id/download_record_cancel_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="@string/download_record_cancel"
+            tool:ignore="RelativeOverlap" />
+    </RelativeLayout>
+</RelativeLayout>
