@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StatFs;
@@ -171,17 +172,35 @@ public class DownloadActivity extends SwipeBackActivity {
                 } else {
                     final FileDownloadBean fileDownloadBean = data.get(position);
                     if (fileDownloadBean.isFinished()) {
+                        String path = data.get(position).getFilePath();
+                        File file = new File(path);
 
-                        File file = new File(data.get(position).getFilePath());
-                        String authority = "com.ds.matisse.file.provider";
-                        Uri uri = FileProvider.getUriForFile(DownloadActivity.this, authority, file);
-                        String type = FileUtil.getMIMEType(file);
+                        if (!file.exists()){
+                            Toast.makeText(DownloadActivity.this,"文件不存在",Toast.LENGTH_SHORT).show();
+                        }else {
 
-                        Intent intent = FileUtil.getFileIntent(file);
-                        //intent.putExtra("file_path", data.get(position).getFilePath());
-                        intent.setDataAndType(uri, type);
-                        startActivity(intent);
+                            String authority = "com.ds.matisse.file.provider";
+                            // 版本大于7.0获取文件路径uri
+                            //Uri uri = Uri.fromFile(file);
+                            //获取文件file的MIME类型
+                            String type = FileUtil.getMIMEType(file);
 
+                            Intent intent = new Intent();
+
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                Uri uri = FileProvider.getUriForFile(DownloadActivity.this, authority, file);
+                                intent.setDataAndType(uri, type);
+                            } else {
+                                intent.setDataAndType(Uri.fromFile(file), type);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            }
+                            intent.putExtra("file_path", path);
+                            //设置intent的Action属性
+                            intent.setAction(Intent.ACTION_VIEW);
+                            startActivity(intent);
+
+                        }
                     } else {
                         final ImageView downloadStatus = view.findViewById(R.id.download_status);
                         final TextView downloadSpeed = view.findViewById(R.id.download_speed);

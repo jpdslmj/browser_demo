@@ -22,13 +22,12 @@ import android.widget.Toast;
 
 import com.ds.browser.R;
 import com.ds.browser.adapter.PopupMenuAdapter;
-import com.ds.browser.util.X5JsObject;
 import com.ds.browser.common.biometriclib.BiometricPromptManager;
-import com.ds.browser.constant.Constant;
 import com.ds.browser.task.ResolveDownloadUrlTask;
 import com.ds.browser.util.AppUtil;
 import com.ds.browser.util.BrowserDBHelper;
 import com.ds.browser.util.SPHelper;
+import com.ds.browser.util.X5JsObject;
 import com.ds.browser.widget.X5WebView;
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest;
 import com.tencent.smtt.sdk.CookieManager;
@@ -58,7 +57,8 @@ public class WebViewFragment extends android.support.v4.app.Fragment{
     private int touchPointX, touchPointY, mHeight, mWidth;
     private PopupWindow quickAction;
     private RecyclerView popupMenuList;
-    private String extra, url=Constant.APP_ADDR;
+    private String extra;
+    private String url;
 
     private BiometricPromptManager biometricPromptManager;
     private SPHelper spHelper;
@@ -78,8 +78,10 @@ public class WebViewFragment extends android.support.v4.app.Fragment{
     public WebViewFragment(Bundle savedInstanceState, OnWebViewListener onWebViewListener, String url) {
         bundle = savedInstanceState;  //为空表示是用户手动添加标签页
         this.wl = onWebViewListener;
-        if (url!=null)
+        if (url!=null) {
             this.url = url;
+        }
+        Log.d(WebViewFragment.class.getSimpleName(),this.url);
     }
 
     @Override

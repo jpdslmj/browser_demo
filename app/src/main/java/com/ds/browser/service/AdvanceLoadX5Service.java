@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.ds.browser.BrowserApplication;
 import com.tencent.smtt.sdk.QbSdk;
+import com.tencent.smtt.sdk.TbsListener;
 
 public class AdvanceLoadX5Service extends Service {
     @Nullable
@@ -23,6 +24,22 @@ public class AdvanceLoadX5Service extends Service {
     }
 
     private void initX5() {
+        QbSdk.setTbsListener(new TbsListener() {
+            @Override
+            public void onDownloadFinish(int i) {
+                Log.d("apptbs", "onDownloadFinish");
+            }
+
+            @Override
+            public void onInstallFinish(int i) {
+                Log.d("apptbs", "onInstallFinish");
+            }
+
+            @Override
+            public void onDownloadProgress(int i) {
+                Log.d("apptbs", "onDownloadProgress:" + i);
+            }
+        });
         //  预加载X5内核
         QbSdk.initX5Environment(getApplicationContext(), cb);
     }

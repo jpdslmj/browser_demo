@@ -14,7 +14,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.ds.browser.R;
-import com.ds.browser.util.SettingsFragment;
+import com.ds.browser.fragment.SettingsFragment;
 import com.ds.browser.widget.SwipeBackLayout;
 
 
@@ -57,7 +57,6 @@ public class ConfigActivity extends PreferenceActivity implements SharedPreferen
             Toast.makeText(this, "修改设置成功", Toast.LENGTH_SHORT).show();
         super.finish();
         overridePendingTransition(0, R.anim.right_out);
-
     }
 
     @Override

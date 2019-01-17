@@ -17,6 +17,7 @@
             android:dialogTitle="清除浏览记录"/>
 
     </com.ds.browser.widget.MPreferenceCategory>
+
     <com.ds.browser.widget.MPreferenceCategory>
         <ListPreference
             android:key="theme_color"
@@ -38,5 +39,15 @@
         <Preference
             android:key="restore_default"
             android:title="恢复默认" />
+    </com.ds.browser.widget.MPreferenceCategory>
+
+
+    <com.ds.browser.widget.MPreferenceCategory>
+        <EditTextPreference
+            android:key="preference_addr"
+            android:title="服务器地址设置"
+            android:dialogTitle="请输入app地址"
+            android:summary="点击输入"
+            />
     </com.ds.browser.widget.MPreferenceCategory>
 </PreferenceScreen>

@@ -15,13 +15,13 @@ import com.ds.browser.R;
 public class MenuAdapter extends BaseAdapter {
     private String[] titles={
             //"收藏书签",
-            "文件下载",
+            //"文件下载",
             //"历史/书签",
             "设置"
     };
     private int[] imageId={
             //R.drawable.collect,
-            R.drawable.file,
+            //R.drawable.file,
             //R.drawable.history,
             R.drawable.setting
     };
@@ -34,7 +34,7 @@ public class MenuAdapter extends BaseAdapter {
     }
     @Override
     public int getCount() {
-        return 2;
+        return 1;
     }
 
     @Override

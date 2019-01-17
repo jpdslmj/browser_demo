@@ -74,6 +74,9 @@
                 android:resource="@xml/file_paths_public"></meta-data>
         </provider>
 
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_VALUE}" />
 
         <activity
             android:name=".activity.MainActivity"

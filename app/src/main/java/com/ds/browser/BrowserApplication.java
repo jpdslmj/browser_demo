@@ -25,6 +25,7 @@ public class BrowserApplication extends Application{
     }
 
     private void preInitX5WebCore() {
+        //TbsDownloader.needDownload(getApplicationContext(), true);
         if (!QbSdk.isTbsCoreInited()) {
             QbSdk.preInit(getApplicationContext());// 设置X5初始化完成的回调接口
         }

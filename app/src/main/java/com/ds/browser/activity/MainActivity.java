@@ -53,6 +53,7 @@ import com.ds.browser.task.DownloaderTask;
 import com.ds.browser.task.ImageTask;
 import com.ds.browser.util.AppUtil;
 import com.ds.browser.util.DownloadHelper;
+import com.ds.browser.util.SPHelper;
 import com.ds.browser.util.ToastUtil;
 import com.ds.browser.util.WebPageHelper;
 import com.ds.browser.widget.MyViewPager;
@@ -156,6 +157,14 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /*
+        // 初始化默认地址，并保存
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("preference_addr", "http://192.168.1.33:8080/index");
+        editor.commit();
+        */
+
         setTheme(R.style.AppTheme_TransparentActivity);
 
         if (Constant.ANDROID_VERSION >= Build.VERSION_CODES.LOLLIPOP) {
@@ -229,6 +238,11 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
                     break;
                 default:
                     url = intent.getStringExtra("shortcut_url");
+                    SPHelper spHelper = new SPHelper(MainActivity.this,"custom_setting");
+                    String preference_addr = (String)spHelper.getSharedPreference("preference_addr", "http://192.168.1.33:8080/index");
+                    if (TextUtils.isEmpty(url)){
+                        url = preference_addr;
+                    }
                     webView.loadUrl(url);
             }
     }
@@ -291,6 +305,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     }
 
     private void initView(Bundle savedInstanceState) {
+
         if (savedInstanceState != null) {
             List<Bundle> bundles = savedInstanceState.getParcelableArrayList("web_page_bundle");
             int count = savedInstanceState.getInt("web_page_count");
@@ -300,7 +315,13 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
             }
             initDot(count);
         } else {
+            // 新建窗口标签
             String url = getIntent().getStringExtra("shortcut_url");
+            SPHelper spHelper = new SPHelper(MainActivity.this,"custom_setting");
+            String preference_addr = (String)spHelper.getSharedPreference("preference_addr", "http://192.168.1.33:8080/index");
+            if (TextUtils.isEmpty(url)){
+                url = preference_addr;
+            }
             Log.d("Main", "onCreate地址Path：" + url);
             WebViewFragment fragment = new WebViewFragment(null, initWebView(), url);
             WebPageHelper.webpagelist.add(fragment);
@@ -364,11 +385,13 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
                 switch (selectMenuPosition) {
                     case -1:
                         break;
+                    /*
                     case 0:
                         startActivityForResult(new Intent(MainActivity.this, DownloadActivity.class), 1);
                         break;
-                    case 1:
-                        startActivity(new Intent(MainActivity.this, ConfigActivity.class));
+                    */
+                    case 0:
+                        startActivityForResult(new Intent(MainActivity.this, ConfigActivity.class),Constant.REQUEST_CODE_CONFIG);
                         break;
                 }
                 selectMenuPosition = -2;
@@ -762,6 +785,9 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
                         webView.loadUrl(data.getStringExtra("currentUri"));
                     }
                 }
+                break;
+            case Constant.REQUEST_CODE_CONFIG:
+
                 break;
             case Constant.REQUEST_FILE_PICKER:
             case Constant.REQUEST_CODE_GALLERY:{

@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 def releaseTime() {
-    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+    return new Date().format("yyyyMMddHHmmss", TimeZone.getTimeZone("UTC"))
 }
 
 //apply plugin: 'com.jakewharton.butterknife'
@@ -24,20 +24,19 @@ android {
         }
     }
     buildTypes {
+        /*
+        debug {
+            minifyEnabled false
+            debuggable true
+        }
+        */
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable false
         }
     }
 
-    applicationVariants.all { variant ->
-        variant.outputs.all {
-            // 输出apk名称为browser_v1.0_2018-xx-xx_xxxx.apk
-            def fileName = "browser_${defaultConfig.versionName}_${releaseTime()}.apk"
-            outputFileName = fileName
-
-        }
-    }
     /*
     sourceSets {
         main {
@@ -46,7 +45,52 @@ android {
         }
     }
     */
-
+    signingConfigs {
+        config {
+            keyAlias 'browserKey'
+            keyPassword 'jiuge19891126'
+            storeFile file('D:/workspace_android/browser.jks')
+            storePassword 'jiuge19891126'
+        }
+    }
+    //渠道配置
+    flavorDimensions "tier","minApi"
+    productFlavors {
+        yingyongbao {
+            dimension "tier"
+        }
+        huawei {
+            dimension "tier"
+        }
+        baidu {
+            dimension "tier"
+        }
+        xiaomi {
+            dimension "minApi"
+        }
+        qh360 {
+            dimension "minApi"
+        }
+    }
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+    /*
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            // 输出apk名称为browser_v1.0_2018-xx-xx_xxxx.apk
+            def fileName = "browser_${buildType.name}_${defaultConfig.versionName}_${releaseTime()}.apk"
+            outputFileName = fileName
+        }
+    }*/
+    android.applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                outputFileName = defaultConfig.applicationId.subSequence(defaultConfig.applicationId.lastIndexOf(".") + 1, defaultConfig.applicationId.length()) + "-v" + defaultConfig.versionCode + "-" + releaseTime() + "-" + output.baseName + ".apk"
+            }
+        }
+    }
 }
 
 dependencies {
@@ -67,8 +111,6 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'pub.devrel:easypermissions:2.0.0'
-
-
     implementation 'it.sephiroth.android.library.imagezoom:library:1.0.4'
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
@@ -77,5 +119,4 @@ dependencies {
     //implementation 'pub.devrel:easypermissions:1.2.0'
     //implementation 'com.zhihu.android:matisse:0.5.2-beta4'
     //implementation 'com.zfdang.multiple-images-selector:multiple-images-selector:1.1.5'
-
 }

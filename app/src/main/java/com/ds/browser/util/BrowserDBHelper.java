@@ -263,7 +263,6 @@ public class BrowserDBHelper extends SQLiteOpenHelper {
                 mHandler.sendMessage(mHandler.obtainMessage(6, searchResult));
             }
         }).start();
-
     }
     public void updateSettingsTable(final Settings settings) {
         new Thread(new Runnable() {

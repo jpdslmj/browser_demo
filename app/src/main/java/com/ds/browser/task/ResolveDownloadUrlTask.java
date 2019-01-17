@@ -269,6 +269,26 @@ public class ResolveDownloadUrlTask extends AsyncTask<String, Void, Integer> {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         fileName = et.getText().toString() + "." + suffix;
+
+
+                        File directory = new File(PreferenceManager.getDefaultSharedPreferences(context).getString("downloadPath", "/storage/emulated/0/BrowserDownloads"));
+                        String fileNameT;
+                        do {
+                            fileNameT = fileName;
+                            String[] s = new String[2];
+                            s[0] = FileUtil.getFileNameNoEx(fileNameT);
+                            s[1] = FileUtil.getExtensionName(fileNameT);
+                            ++i;
+                            if (i != 0) {
+                                s[0] = s[0] + "(" + i + ")";
+                            }
+                            fileNameT = s[0] + "." + s[1];
+                            file = new File(directory, fileNameT);
+                        } while (file.exists());
+                        fileName = fileNameT;
+
+
+
                         initPopupWindow();
                         WindowManager.LayoutParams lp = ((Activity) context).getWindow().getAttributes();
                         lp.alpha = 0.6f;
