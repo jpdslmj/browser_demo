@@ -27,8 +27,19 @@ public class BrowserApplication extends Application{
 
     private void preInitX5WebCore() {
         TbsDownloader.needDownload(getApplicationContext(), true);
+        QbSdk.setDownloadWithoutWifi(true);
         if (!QbSdk.isTbsCoreInited()) {
-            QbSdk.preInit(getApplicationContext());// 设置X5初始化完成的回调接口
+            QbSdk.preInit(getApplicationContext(), new QbSdk.PreInitCallback() {
+                @Override
+                public void onCoreInitFinished() {
+
+                }
+
+                @Override
+                public void onViewInitFinished(boolean b) {
+
+                }
+            });// 设置X5初始化完成的回调接口
         }
     }
 
