@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
+import com.ds.browser.R;
 import com.tencent.smtt.sdk.WebView;
 
 public class X5WebView extends WebView implements GestureDetector.OnGestureListener{
@@ -14,15 +15,19 @@ public class X5WebView extends WebView implements GestureDetector.OnGestureListe
     //private DownloadListener downloadListener;
 
     public X5WebView(Context context) {
+        //super(context);
+        //gestureDetector=new GestureDetector(context,this);
         this(context,null);
     }
 
     public X5WebView(Context context, AttributeSet attributeSet) {
-        this(context, attributeSet,0);
+        super(context,attributeSet);
+        gestureDetector=new GestureDetector(context,this);
+        //this(context, attributeSet,R.attr.webViewStyle);
     }
 
-    public X5WebView(Context context, AttributeSet attributeSet, int i) {
-        super(context, attributeSet, i);
+    public X5WebView(Context context, AttributeSet attributeSet, int defStyleAttr) {
+        super(context, attributeSet, defStyleAttr);
         gestureDetector=new GestureDetector(context,this);
     }
 /*

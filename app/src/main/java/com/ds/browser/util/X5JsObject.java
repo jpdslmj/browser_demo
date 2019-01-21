@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.tencent.smtt.sdk.CookieManager;
 import com.tencent.smtt.sdk.CookieSyncManager;
 import com.tencent.smtt.sdk.ValueCallback;
+import com.tencent.smtt.sdk.WebStorage;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -101,7 +102,8 @@ public class X5JsObject {
             deleteFile(new File(context.getDir("webview",0).getPath()+"/Local Storage"));
             deleteFile(new File(context.getDir("browser_cache",0).getPath()+"/Cache"));
             deleteFile(new File(context.getDir("browser_cache",0).getPath()+"/Local Storage"));
-
+            WebStorage.getInstance().deleteAllData();
+            context.getCacheDir().delete();
 
             BrowserDBHelper.getBrowserDBHelper(context).searchUserTable(new BrowserDBHelper.OnSearchUserTableListener() {
                 @Override

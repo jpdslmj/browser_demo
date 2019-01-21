@@ -59,9 +59,12 @@ import com.ds.browser.util.WebPageHelper;
 import com.ds.browser.widget.MyViewPager;
 import com.ds.browser.widget.ScrollLayout;
 import com.ds.browser.widget.X5WebView;
+import com.tencent.smtt.sdk.CookieManager;
+import com.tencent.smtt.sdk.CookieSyncManager;
 import com.tencent.smtt.sdk.ValueCallback;
 import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebSettings;
+import com.tencent.smtt.sdk.WebStorage;
 import com.tencent.smtt.sdk.WebView;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
@@ -161,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         // 初始化默认地址，并保存
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
         SharedPreferences.Editor editor = sp.edit();
-        editor.putString("preference_addr", "http://192.168.1.33:8080/index");
+        editor.putString("preference_addr", "http://192.168.1.29:8080/index");
         editor.commit();
         */
 
@@ -178,6 +181,8 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.TRANSPARENT);
         }
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         //网络状态变化广播监听
         IntentFilter mFilterNetwork = new IntentFilter();
@@ -239,7 +244,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
                 default:
                     url = intent.getStringExtra("shortcut_url");
                     SPHelper spHelper = new SPHelper(MainActivity.this,"custom_setting");
-                    String preference_addr = (String)spHelper.getSharedPreference("preference_addr", "http://192.168.1.33:8080/index");
+                    String preference_addr = (String)spHelper.getSharedPreference("preference_addr", "http://192.168.1.29:8080/index");
                     if (TextUtils.isEmpty(url)){
                         url = preference_addr;
                     }
@@ -275,6 +280,25 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         WebPageHelper.webpagelist.clear();
         unregisterReceiver(networkChange);
         unregisterReceiver(refresh);
+
+        CookieManager cookieManager = CookieManager.getInstance();
+        if (Constant.ANDROID_VERSION >= Build.VERSION_CODES.LOLLIPOP) {
+            cookieManager.removeSessionCookie();
+            cookieManager.removeSessionCookies(null);
+            cookieManager.removeAllCookies(null);
+            cookieManager.removeAllCookie();
+            cookieManager.removeExpiredCookie();
+            cookieManager.flush();
+        } else {
+            cookieManager.removeSessionCookies(null);
+            cookieManager.removeAllCookie();
+            CookieSyncManager.getInstance().sync();
+        }
+        WebStorage.getInstance().deleteAllData();
+        getCacheDir().delete();
+        webView.clearCache(true);
+
+
     }
 
     private void initPermission() {
@@ -318,7 +342,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
             // 新建窗口标签
             String url = getIntent().getStringExtra("shortcut_url");
             SPHelper spHelper = new SPHelper(MainActivity.this,"custom_setting");
-            String preference_addr = (String)spHelper.getSharedPreference("preference_addr", "http://192.168.1.33:8080/index");
+            String preference_addr = (String)spHelper.getSharedPreference("preference_addr", "http://192.168.1.29:8080/index");
             if (TextUtils.isEmpty(url)){
                 url = preference_addr;
             }

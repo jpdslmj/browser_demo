@@ -6,8 +6,10 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.widget.Toast;
 
+import com.ds.browser.constant.Constant;
 import com.tencent.smtt.sdk.CookieManager;
 import com.tencent.smtt.sdk.CookieSyncManager;
+import com.tencent.smtt.sdk.WebStorage;
 
 import java.io.File;
 
@@ -25,20 +27,33 @@ public class ClearCacheTask extends AsyncTask<String,Void,Boolean> {
             switch (s){
                 case "1":
                     //清除会话和持久态Cookies（保持网页登录状态，偏好设置）
-                    CookieManager cm=CookieManager.getInstance();
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        cm.removeAllCookies(null);
-                        cm.flush();
+                    CookieManager cookieManager = CookieManager.getInstance();
+                    if (Constant.ANDROID_VERSION >= Build.VERSION_CODES.LOLLIPOP) {
+                        cookieManager.removeSessionCookie();
+                        cookieManager.removeSessionCookies(null);
+                        cookieManager.removeAllCookies(null);
+                        cookieManager.removeAllCookie();
+                        cookieManager.removeExpiredCookie();
+                        cookieManager.flush();
                     } else {
-                        cm.removeAllCookie();
+                        cookieManager.removeSessionCookies(null);
+                        cookieManager.removeAllCookie();
                         CookieSyncManager.getInstance().sync();
                     }
+                    WebStorage.getInstance().deleteAllData();
+                    if (context!=null) context.getCacheDir().delete();
                     break;
                 case "2":
+                    WebStorage.getInstance().deleteAllData();
                     deleteFile(new File(context.getDir("webview",0).getPath()+"/Cache"));
+                    deleteFile(new File(context.getDir("browser_cache",0).getPath()));
+                    if (context!=null) context.getCacheDir().delete();
                     break;
                 case "3":
+                    WebStorage.getInstance().deleteAllData();
                     deleteFile(new File(context.getDir("webview",0).getPath()+"/Local Storage"));
+                    deleteFile(new File(context.getDir("browser_cache",0).getPath()));
+                    if (context!=null) context.getCacheDir().delete();
                     break;
             }
         }

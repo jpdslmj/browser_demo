@@ -44,7 +44,7 @@ public class SettingsFragment extends PreferenceFragment {
 
         final EditTextPreference serverAddr = (EditTextPreference)findPreference("preference_addr");
         final SPHelper spHelper = new SPHelper(getActivity(),"custom_setting");
-        String addr = (String)spHelper.getSharedPreference("preference_addr", "http://192.168.1.33:8080/index");
+        String addr = (String)spHelper.getSharedPreference("preference_addr", "http://192.168.1.29:8080/index");
         serverAddr.setSummary(addr);
         serverAddr.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override

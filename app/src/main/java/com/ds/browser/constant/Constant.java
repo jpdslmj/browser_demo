@@ -7,7 +7,7 @@ public class Constant {
     public static final int ANDROID_VERSION = Build.VERSION.SDK_INT;
 
 
-    public static final String APP_ADDR_DEFAULT = "http://192.168.1.33:8080/index";
+    public static final String APP_ADDR_DEFAULT = "http://192.168.1.29:8080/index";
     //public static final String APP_ADDR = "http://www.baidu.com";
     /**
      * 文件

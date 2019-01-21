@@ -202,11 +202,24 @@ public class WebViewFragment extends android.support.v4.app.Fragment{
             };
 
             webView.setOnLongClickListener(onLongClickListener);
+
+            webView.requestFocus();
+
             webView.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     touchPointX = (int) event.getRawX();
                     touchPointY = (int) event.getRawY();
+
+                    switch (event.getAction ()) {
+                        case MotionEvent.ACTION_DOWN :
+                        case MotionEvent.ACTION_UP :
+                            if (!v.hasFocus ()) {
+                                v.requestFocus ();
+                            }
+                            break ;
+                    }
+
                     return false;
                 }
             });
@@ -230,6 +243,8 @@ public class WebViewFragment extends android.support.v4.app.Fragment{
 
 
 
+
+
             if (bundle != null)
                 webView.restoreState(bundle);
             else if (savedInstanceState != null)
@@ -241,6 +256,9 @@ public class WebViewFragment extends android.support.v4.app.Fragment{
                 wl.onGetWebView(webView);  //新添加的fragment
             webViewContainer = cache.findViewById(R.id.frame_layout);
 
+
+            webView.clearCache(true);
+            webView.clearFormData();
         }
         return cache;
     }
