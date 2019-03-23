@@ -1,6 +1,7 @@
 package com.ds.browser.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
@@ -15,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.URLUtil;
 import android.widget.FrameLayout;
 import android.widget.PopupWindow;
@@ -98,6 +100,9 @@ public class WebViewFragment extends android.support.v4.app.Fragment{
         Log.d("WP", "调用onCreateView cache :" + cache);
 
         biometricPromptManager = BiometricPromptManager.from(getActivity());
+
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.HIDE_NOT_ALWAYS);
 
         if (cache == null) {
             cache = inflater.inflate(R.layout.webview_fragment, container, false);

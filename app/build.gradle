@@ -54,6 +54,7 @@ android {
         }
     }
     //渠道配置
+    /*
     flavorDimensions "tier","minApi"
     productFlavors {
         yingyongbao {
@@ -75,6 +76,7 @@ android {
     productFlavors.all {
         flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
     }
+    */
     /*
     applicationVariants.all { variant ->
         variant.outputs.all {
